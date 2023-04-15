@@ -1,8 +1,9 @@
-local Char = game.Players.LocalPlayer.Character
+local Player = game.Players.LocalPlayer
+local Char = Player.Character
 local PlayerName = Char.Name
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 local Window = Rayfield:CreateWindow({
-   Name = "Eye's Handy Dandy Console V1.0.1",
+   Name = "Eye's Handy Dandy Console V1.0.3",
    LoadingTitle = "Loading this shithole",
    LoadingSubtitle = "by The Eye Of Smile",
    ConfigurationSaving = {
@@ -159,3 +160,42 @@ local Button = Tab:CreateButton({
 	end
    end,
 })
+local Tab2 = Window:CreateTab("Hitbox Extender", 4483362458)
+local Slider = Tab2:CreateSlider({
+   Name = "Tool Hitbox Extender",
+   Range = {0, 200},
+   Increment = 10,
+   Suffix = "Size",
+   CurrentValue = 16,
+   Flag = "HitBoxTool", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+		for i,child in pairs(Char:GetDescendants()) do
+			if child:IsA("Tool") then
+				child.Handle.CanCollide = false
+				local e= Instance.new("Highlight", child)
+				child.Handle.Size = Vector3.new(Value, Value, Value)
+			end
+		end
+  end,
+})	
+local Slider = Tab2:CreateSlider({
+   Name = "Enemy Hitbox Extender",
+   Range = {0, 200},
+   Increment = 10,
+   Suffix = "Size",
+   CurrentValue = 16,
+   Flag = "EnemyHitbox", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   for _, child in ipairs(game.Workspace:GetDescendants()) do
+if child.Name == "Stuff" then
+for _, child2 in ipairs(child:GetDescendants()) do
+if child2.Name == "HumanoidRootPart" then
+	child2.CanCollide = false
+child2.Size = Vector3.new(Value, Value, Value)
+end
+end
+end
+end
+  end,
+})	
+print("Epic!")
